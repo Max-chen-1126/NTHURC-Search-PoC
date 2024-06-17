@@ -1,0 +1,6 @@
+streamlit
+google-cloud-aiplatform
+python-dotenv
+google-cloud-discoveryengine
+google-api-core
+urllib3
