@@ -161,7 +161,6 @@ def search_pdf_and_sum(user_query, status, show_context=True):
             # get document title:
             if 'title' in doc.keys():
                 title = doc['title']
-                print(title)
             else:
                 title = doc['link'].split('/')[-1]
 
@@ -198,7 +197,7 @@ def search_pdf_and_sum(user_query, status, show_context=True):
                     else:
                         part_suffix = ''
 
-                    text += f'''\n\t- Segment {e+1} (Relevance Score: {extract['relevanceScore']:.3f}) ({page_link}): {part}{part_suffix}'''
+                    text += f'''\n\t- Segment {e+1} (此片段相關性分數: {extract['relevanceScore']:.3f}) ({page_link}): {part}{part_suffix}'''
         st.write("完成總結及提供參考文獻")
     return answer, text
 
@@ -215,7 +214,7 @@ def main():
     with st.sidebar:
         url = 'https://storage.googleapis.com/image-text-generate-test/unnamed.png'
 
-        with st.expander("🤖 **關於 AI 搜尋**", expanded=True):
+        with st.expander("🤖 **關於 AI 搜尋**", expanded=False):
             st.markdown('''
                     - 通過提問詢問 PDF 並**提取相關的資料後產生總結以及輸出相關參考文獻**
                     - 使用 LLM (**Gemini-1.5-Flash**) 來總結相關資料產生回答
@@ -238,18 +237,19 @@ def main():
     vertexai.init(project=project_id, location=region)
     aiplatform.init(project=project_id, location=region)
 
-    with st.expander("📍 **測試案例**", expanded=False):
+    with st.expander("📍 **測試案例**", expanded=True):
         st.markdown("""
                         相關的一些測試問題：
-                        1. 申請土城明德2號社宅的套房型月租金為多少？
-                        2. 申請時需要檢附哪些文件？
-                        3. 本案社宅的遞補名冊有效期間為多久？
-                        4. 本案有哪些房型的社宅可供申請？
-                        5. 本案的申請期限為何？可以郵寄申請嗎？
+                        1. 社會住宅的申請流程是什麼？需要哪些基本文件？
+                        2. 青年社會住宅戶租金訂定原則為何？是否需另外繳交管理費？
+                        3. 如果申請人的戶籍所在地在外縣市，是否能申請新北市的社會住宅？
+                        4. 承租社會住宅後是否可以將房屋轉租或用於商業用途？違反規定會有什麼後果？
+                        5. 目前接受政府其他租金補貼者，是否可以再申請青年社會住宅？入住後原租金補貼資格會怎麼處理？
                         """)
     st.markdown('---')
-    user_query = st.text_input("提問")
-    button = st.button('搜尋')
+    user_query = st.text_input(
+        "提問", placeholder="請在此提出與新北社宅相關的問題", key="user_query")
+    button = st.button('Search 🔎')
     if button:
         st.markdown('## 🤖 :orange[社宅小助手] : \n\n')
         with st.status('搜尋中...') as status:
