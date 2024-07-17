@@ -12,3 +12,8 @@ Help 新北市住都中心建立測試 AI Search PoC
 - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin asia-east1-docker.pkg.dev
 - docker push asia-east1-docker.pkg.dev/nthurc-aisearch-202406/nthurc-search-poc/search_poc_app
 - 測試網站： https://nthurc-search.hkmci.com.tw/
+
+
+# NTHURC DocAI PoC: 
+1. DocAI
+2. 多模態模型 + OCR
