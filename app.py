@@ -115,7 +115,7 @@ def search_pdf_and_sum(user_query, status, show_context=True):
             return 'No results', "No results"
 
     # 使用 Gemini-1.5-Flash 模型生成回答
-    textgen_model = GenerativeModel("gemini-1.5-flash")
+    textgen_model = GenerativeModel("gemini-1.5-pro")
     generation_config = GenerationConfig(
         temperature=0.1,
         top_p=0.8,
@@ -124,13 +124,13 @@ def search_pdf_and_sum(user_query, status, show_context=True):
         max_output_tokens=2048,
     )
     safety_config = [
-        vertexai.generative_models.SafetySetting(
-            category=vertexai.generative_models.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-            threshold=vertexai.generative_models.HarmBlockThreshold.BLOCK_ONLY_HIGH,
+        vertexai.generative_models.SafetySetting(  # type: ignore
+            category=vertexai.generative_models.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,  # type: ignore
+            threshold=vertexai.generative_models.HarmBlockThreshold.BLOCK_ONLY_HIGH,  # type: ignore
         ),
-        vertexai.generative_models.SafetySetting(
-            category=vertexai.generative_models.HarmCategory.HARM_CATEGORY_HARASSMENT,
-            threshold=vertexai.generative_models.HarmBlockThreshold.BLOCK_ONLY_HIGH,
+        vertexai.generative_models.SafetySetting(  # type: ignore
+            category=vertexai.generative_models.HarmCategory.HARM_CATEGORY_HARASSMENT,  # type: ignore
+            threshold=vertexai.generative_models.HarmBlockThreshold.BLOCK_ONLY_HIGH,  # type: ignore
         ),
     ]
     prompt = f"你目前是新北市政府住宅及都市更新中心的社會住宅問答機器人，主要負責回答關於社會住宅申請以及規範的一些疑問，基於使用者提出的問題，我會提供你一些與社會住宅相關的檔案，我希望你只能基於我提供的這些檔案找出答案並進行回答，並且如果你無法回答或是提供的檔案內並沒有答案，請你誠實的告訴我你無法回答這題。\n\n 檔案片段：{segments_results}。\n\n 問題：{user_query}，\n\n 請以務必繁體中文以及 Markdown 語法輸出結果，並只使用文件內內容進行回答，請盡量使用文件中內容豐富回答以幫助提問者完整理解，請一步一步思考，這對我的職業生涯非常重要，請務必認真看待。\n\n提供簡短且準確地回答: Let's work step by step."
@@ -139,8 +139,8 @@ def search_pdf_and_sum(user_query, status, show_context=True):
         prompt, generation_config=generation_config, safety_settings=safety_config)
 
     if show_context == True:
-        if prediction and prediction.candidates:  # 檢查是否存在預測和候選項
-            candidate = prediction.candidates[0]  # 獲取第一個候選項
+        if prediction and prediction.candidates:  # 檢查是否存在預測和候選項 # type: ignore
+            candidate = prediction.candidates[0]  # 獲取第一個候選項 # type: ignore
             if candidate.content and candidate.content.parts:  # 檢查是否存在內容和部分
                 # 拼接所有部分的文本
                 first_answer = "".join(
@@ -168,7 +168,8 @@ def search_pdf_and_sum(user_query, status, show_context=True):
             if 'link' in doc.keys():
                 if doc['link'].startswith('gs://'):
                     link = 'https://storage.cloud.google.com/' + \
-                        urllib.parse.quote(doc['link'].replace('gs://', ''))
+                        urllib.parse.quote(doc['link'].replace(  # type: ignore
+                            'gs://', ''))  # type: ignore
             else:
                 link = ''  # this should not happen
 

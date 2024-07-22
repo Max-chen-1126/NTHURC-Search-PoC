@@ -1,352 +1,297 @@
 import streamlit as st
 from dotenv import load_dotenv
 import vertexai
-from vertexai.generative_models import GenerativeModel, GenerationConfig
 from google.cloud import aiplatform
 from google.api_core.client_options import ClientOptions
-import urllib
-import google.cloud.discoveryengine_v1 as discoveryengine
-from google.cloud import storage
-from urllib.parse import urlparse
-import base64
+import urllib.parse
+import google.cloud.discoveryengine_v1alpha as discoveryengine
+from typing import List, Optional, Tuple
+from google.api_core import exceptions
+from langchain_core.messages import AIMessage, HumanMessage
+import re
+import os
 
 
-def pdf_preview(gcs_link, page_number):
+def searchWithSummary(
+    project_id: str,
+    location: str,
+    data_store_id: str,
+    search_queries: List[str],
+    conversation_id: Optional[str] = None,
+) -> Tuple[str, str]:  # type: ignore
     """
-    從 Google Cloud Storage (GCS) 中讀取 PDF 檔案，並顯示其預覽。
+    在對話中搜尋與給定查詢相關的資訊。
 
-    Args:
-        gcs_link (str): PDF 檔案的 GCS 連結。
-        page_number (int): 要顯示的頁碼。
+    參數:
+        project_id (str): 專案 ID。
+        location (str): 數據存儲的位置。
+        data_store_id (str): 數據存儲的 ID。
+        search_queries (List[str]): 搜尋查詢列表。
+        conversation_id (str, optional): 對話 ID。預設為 None。
 
-    Returns:
-        None
-    """
-    base64_pdf = get_pdf_base64_from_gcs(gcs_link)
-    pdf_display = (
-        f'<iframe src="data:application/pdf;base64,{base64_pdf}#page={page_number}#toolbar=0" width="700" height="1000"></iframe>'
-    )
-    st.markdown(pdf_display, unsafe_allow_html=True)
+    返回:
+        Tuple[str, str]: 包含摘要文本和格式化的提取答案列表的元組。
 
-
-def get_pdf_base64_from_gcs(gcs_uri):
-    """
-    從 GCS URI 取得 PDF 檔案的 base64 編碼。
-
-    Args:
-        gcs_uri: GCS URI，格式為 gs://<bucket_name>/<object_name>
-
-    Returns:
-        PDF 檔案的 base64 編碼字串。
-    """
-    # 解析 GCS URI
-    parsed_url = urlparse(gcs_uri)
-
-    # 確認 scheme 為 gs
-    if parsed_url.scheme != "gs":
-        raise ValueError("無效的 GCS URI")
-
-    # 提取 bucket 名稱和 object name
-    bucket_name = parsed_url.netloc
-    object_name = parsed_url.path.lstrip('/')  # 去除開頭的斜線
-
-    # 確認 bucket_name 和 object_name 不為空
-    if not bucket_name or not object_name:
-        raise ValueError("bucket 名稱或 object name 不能為空")
-
-    # 建立 GCS Client
-    storage_client = storage.Client()
-
-    # 取得 bucket 和 blob
-    bucket = storage_client.bucket(bucket_name)
-    blob = bucket.blob(object_name)
-
-    # 下載檔案內容並轉換為 base64
-    file_content = blob.download_as_bytes()  # 獲取二進位檔案內容
-    base64_content = base64.b64encode(file_content).decode("utf-8")
-
-    return base64_content
-
-
-def search_pdf_and_sum(user_query, status, show_context=True):
-    """
-    搜尋 PDF 文件並生成摘要的函式。
-
-    Args:
-        user_query (str): 使用者的查詢。
-        status (Status): 用於顯示搜尋狀態的狀態欄。
-        show_context (bool, optional): 是否顯示相關內容。預設為 True。
-
-    Returns:
-        str: 摘要回答。
-        str: 相關內容。
-
-    Raises:
-        Exception: 發生錯誤時拋出異常。
+    異常:
+        Exception: 當 API 調用失敗時拋出。
     """
     try:
-        # 建立 Discovery Engine 的客戶端
-        client_options = (ClientOptions(api_endpoint=f"{location}-aiplatform.googleapis.com")
-                          if location != "global" else None)
-        client = discoveryengine.SearchServiceClient(
-            client_options=client_options)
-        # 設定服務配置
-        serving_config = client.serving_config_path(
-            project=project_id, location=location, data_store=engine_id, serving_config="default_config")
+        client = _create_client(location)
+        conversation_name = _get_or_create_conversation(
+            client, project_id, location, data_store_id, conversation_id)
 
-        # 發送搜尋請求
-        response = client.search(
-            request=discoveryengine.SearchRequest(
-                query=user_query,
-                page_size=2,
-                serving_config=serving_config,
-                content_search_spec=discoveryengine.SearchRequest.ContentSearchSpec(
-                    extractive_content_spec=discoveryengine.SearchRequest.ContentSearchSpec.ExtractiveContentSpec(
-                        max_extractive_segment_count=4,
-                        return_extractive_segment_score=True,
-                        num_previous_segments=1,
-                        num_next_segments=1,
-                    )
-                ),
-                query_expansion_spec=discoveryengine.SearchRequest.QueryExpansionSpec(
-                    condition=discoveryengine.SearchRequest.QueryExpansionSpec.Condition.AUTO
-                ),
-                spell_correction_spec=discoveryengine.SearchRequest.SpellCorrectionSpec(
-                    mode=discoveryengine.SearchRequest.SpellCorrectionSpec.Mode.AUTO
-                )
-            )
-        )
-        status.update(label="Search complete!",
-                      state="running", expanded=False)
+        for search_query in search_queries:
+            request = _create_converse_request(
+                client, conversation_name, project_id, location, data_store_id, search_query)
+            response = client.converse_conversation(request)
 
-        # 解析搜尋結果
-        results = []
-        for result in response.results:
-            document = dict(result.document.derived_struct_data)
-            if 'extractive_segments' in document.keys():
-                document['extractive_segments'] = [
-                    dict(segment) for segment in document['extractive_segments']]
-            results.append(document)
+            if response.reply.summary.summary_skipped_reasons:
+                return "⚠️ 抱歉，請檢查您的問題是否與社宅相關，需要進一步處理請聯繫 **09123456789**", ""
 
-        # 過濾搜尋結果, 只保留 relevanceScore 大於 0.8 的 segment
-        filtered_results = []
-        for result in results:
-            filtered_segments = []
-            for segment in result['extractive_segments']:
-                if segment['relevanceScore'] >= 0.80:
-                    filtered_segments.append(segment)
-            result['extractive_segments'] = filtered_segments
-            relevance_score = max(
-                (segment["relevanceScore"]
-                 for segment in result["extractive_segments"]),
-                default=None,
-            )
-            result['relevanceScore'] = relevance_score
-            filtered_results.append(result)
+            summary_text = response.reply.summary.summary_text
+            extractive_answers = _format_extractive_answers(
+                response.reply.summary.summary_with_metadata.references)  # type: ignore
 
-        # 排序，確保 relevanceScore 存在
-        filtered_results = sorted(
-            [result for result in filtered_results if result.get(
-                'relevanceScore') is not None],
-            key=lambda x: x['relevanceScore'],
-            reverse=True,
-        )
+            return summary_text, "\n ".join(extractive_answers)
 
-        if not filtered_results:  # 如果 filtered_results 為空則回傳 No results
-            return 'No results', "No results"
-
-         # 生成摘要，提供給 LLM 作為背景資料
-        segments_results = ''
-        for r, result in enumerate(filtered_results):
-            segments_results += f"\n\nSource Document {r+1} (Relevance Score: {result['relevanceScore']:.3f}):\n\tName: {result['title']}"
-            if 'extractive_segments' in result.keys() and result['extractive_segments']:
-                for s, segment in enumerate(result['extractive_segments']):
-                    content = segment['content']
-                    content = content.replace("\n", " ")
-                    segments_results += f"\n\tSegment {s+1} (page = {segment['pageNumber']}): {content}"
-
+    except exceptions.GoogleAPICallError as e:
+        print(f"API 調用錯誤: {e}")
+        return "發生錯誤，請稍後再試或聯繫支援人員。", ""
     except Exception as e:
-        if "max() arg is an empty sequence" in str(e):  # 檢查是否為 max() 錯誤
-            st.error(f"No relevant results found.")
-            return 'No results', "No results"  # 捕獲其他可能的錯誤
-        else:
-            st.error(f"An error occurred: {e}")
-            return 'No results', "No results"
+        print(f"未預期的錯誤: {e}")
+        return "發生未知錯誤，請聯繫支援人員。", ""
 
-    # 使用 Gemini-1.5-Flash 模型生成回答
-    textgen_model = GenerativeModel("gemini-1.5-flash")
-    generation_config = GenerationConfig(
-        temperature=0.1,
-        top_p=0.8,
-        top_k=5,
-        candidate_count=1,
-        max_output_tokens=2048,
+
+def _create_client(location: str) -> discoveryengine.ConversationalSearchServiceClient:
+    """創建並返回 ConversationalSearchServiceClient。"""
+    client_options = ClientOptions(
+        api_endpoint=f"{location}-discoveryengine.googleapis.com") if location != "global" else None
+    return discoveryengine.ConversationalSearchServiceClient(client_options=client_options)
+
+
+def _get_or_create_conversation(
+    client: discoveryengine.ConversationalSearchServiceClient,
+    project_id: str,
+    location: str,
+    data_store_id: str,
+    conversation_id: Optional[str]
+) -> str:
+    """獲取現有對話或創建新對話。"""
+    if conversation_id:
+        return client.conversation_path(project=project_id, location=location, data_store=data_store_id, conversation=conversation_id)
+
+    conversation = client.create_conversation(
+        parent=client.data_store_path(
+            project=project_id, location=location, data_store=data_store_id),
+        conversation=discoveryengine.Conversation(),
     )
-    safety_config = [
-        vertexai.generative_models.SafetySetting(
-            category=vertexai.generative_models.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-            threshold=vertexai.generative_models.HarmBlockThreshold.BLOCK_ONLY_HIGH,
+    st.session_state["conversation_id"] = conversation.name.split('/')[-1]
+    print(conversation.name)
+    return conversation.name
+
+
+def _create_converse_request(
+    client: discoveryengine.ConversationalSearchServiceClient,
+    conversation_name: str,
+    project_id: str,
+    location: str,
+    data_store_id: str,
+    search_query: str
+) -> discoveryengine.ConverseConversationRequest:
+    """創建 ConverseConversationRequest 對象。"""
+    return discoveryengine.ConverseConversationRequest(
+        name=conversation_name,
+        safe_search=True,
+        query=discoveryengine.TextInput(input=search_query),
+        serving_config=client.serving_config_path(
+            project=project_id,
+            location=location,
+            data_store=data_store_id,
+            serving_config="default_config",
         ),
-        vertexai.generative_models.SafetySetting(
-            category=vertexai.generative_models.HarmCategory.HARM_CATEGORY_HARASSMENT,
-            threshold=vertexai.generative_models.HarmBlockThreshold.BLOCK_ONLY_HIGH,
+        summary_spec=discoveryengine.SearchRequest.ContentSearchSpec.SummarySpec(
+            summary_result_count=3,
+            include_citations=True,
+            model_spec=discoveryengine.SearchRequest.ContentSearchSpec.SummarySpec.ModelSpec(
+                version="gemini-1.5-flash-001/answer_gen/v1"  # "preview"
+            ),
+            model_prompt_spec=discoveryengine.SearchRequest.ContentSearchSpec.SummarySpec.ModelPromptSpec(
+                preamble="""
+                你是新北市政府住宅及都市更新中心的社會住宅申請問答助手。你的任務是專門回答與社會住宅申請程序和條件相關的問題。請遵循以下指引：
+                個性與表達方式：
+                    保持溫和、耐心的態度
+                    使用口語化、淺顯易懂的方式解釋複雜概念
+                    避免使用艱澀的專業術語，改用日常用語
+                回答範圍：
+                    嚴格限制在社會住宅申請相關問題
+                    僅回答有明確書面記載的資訊
+                    不討論社宅剩餘戶數等即時性資訊
+                    不涉及申請流程以外的話題
+                資訊來源與回答方式：
+                    僅使用提供的官方參考資料
+                    將正式文件內容轉換為口語化表達
+                    簡化複雜規定，但確保資訊準確無誤
+                    如遇超出參考資料範圍的問題，坦誠表示無法回答
+                語言要求：
+                    使用繁體中文回答所有問題
+                回答態度：
+                    認真對待每個問題，視為重要工作
+                    仔細思考並確認資訊正確性後再回答
+                互動指引：
+                    鼓勵使用者提出具體問題
+                    適時詢問是否需要進一步解釋
+                    引導使用者至官方管道尋求更多協助 (官網 : https://www.nthurc.org.tw/ , 官方電話: (02) 2957-1999  )
+                請記住，你的角色是協助民眾了解社會住宅申請流程，而非提供個人建議或即時資訊。保持專業、友善，並始終以幫助申請者為目標。
+                """
+            ),
+            language_code="zh-TW",
+            ignore_adversarial_query=True,
+            ignore_non_summary_seeking_query=True,
         ),
-    ]
-    prompt = f"你目前是新北市政府住宅及都市更新中心的社會住宅問答機器人，主要負責回答關於社會住宅申請以及規範的一些疑問，基於使用者提出的問題，我會提供你一些與社會住宅相關的檔案，我希望你只能基於我提供的這些檔案找出答案並進行回答，並且如果你無法回答或是提供的檔案內並沒有答案，請你誠實的告訴我你無法回答這題。\n\n 檔案片段：{segments_results}。\n\n 問題：{user_query}，\n\n 請以務必繁體中文以及 Markdown 語法輸出結果，並只使用文件內內容進行回答，請盡量使用文件中內容豐富回答以幫助提問者完整理解，請一步一步思考，這對我的職業生涯非常重要，請務必認真看待。\n\n提供簡短且準確地回答: Let's work step by step."
-
-    prediction = textgen_model.generate_content(
-        prompt, generation_config=generation_config, safety_settings=safety_config)
-
-    if show_context == True:
-        if prediction and prediction.candidates:  # 檢查是否存在預測和候選項
-            candidate = prediction.candidates[0]  # 獲取第一個候選項
-            if candidate.content and candidate.content.parts:  # 檢查是否存在內容和部分
-                # 拼接所有部分的文本
-                first_answer = "".join(
-                    [part.text for part in candidate.content.parts])
-                answer = f'''### :blue[Answer]\n{first_answer}\n\n'''
-            else:
-                answer = ""  # Handle the case where content or parts are missing
-        else:
-            answer = ""  # Handle the case where content or parts are missing
-
-        text = ""
-        for r, result in enumerate(response.results):
-
-            if r > 0:
-                text += '\n'
-            doc = dict(result.document.derived_struct_data)
-
-            # get document title:
-            if 'title' in doc.keys():
-                title = doc['title']
-            else:
-                title = doc['link'].split('/')[-1]
-
-            # get document hyperlink
-            if 'link' in doc.keys():
-                if doc['link'].startswith('gs://'):
-                    link = 'https://storage.cloud.google.com/' + \
-                        urllib.parse.quote(doc['link'].replace('gs://', ''))
-            else:
-                link = ''  # this should not happen
-
-            # construct title with link
-            if link:
-                title_link = f'[{title}]({link})'
-            else:
-                title_link = title
-
-            text += f"{r+1}. {title_link}"
-            if 'extractive_segments' in doc.keys():
-                for e, extract in enumerate(doc['extractive_segments']):
-
-                    # construct page with link
-                    if link:
-                        page_link = f"[page = {extract['pageNumber']}]({link}#page={extract['pageNumber']})"
-                    else:
-                        page_link = f"page = {extract['pageNumber']}"
-
-                    len_extract = len(extract['content'])
-                    part = extract["content"][0:min(
-                        [250, len_extract])].replace("\n", " ")
-
-                    if len_extract > len(part):
-                        part_suffix = f' ... ({len_extract - 250} more characters)'
-                    else:
-                        part_suffix = ''
-
-                    preview_button_key = f"preview_button_{r}_{e}"
-                    st.session_state.setdefault('pdf_preview_buttons', []).append({
-                        'key': preview_button_key,
-                        'link': doc['link'],
-                        'page': extract['pageNumber']
-                    })
-
-                    text += f'''\n\t- Segment {e+1} (此片段相關性分數: **:red[{extract['relevanceScore']:.3f}]**) : {part}{part_suffix}'''
-        st.write("完成總結及提供參考文獻")
-    return answer, text
+    )
 
 
-def main():
-    """
-    主函式，用於設定網頁標題、佈局和側邊欄，並處理使用者的輸入和搜尋操作。
-    """
+def _format_extractive_answers(references) -> List[str]:
+    """格式化提取的答案。"""
+    extractive_answers = []
+    for i, reference in enumerate(references, 1):
+        name = "申請須知(上)" if reference.title == "<4D6963726F736F667420576F7264202D20313133A67EABD7B2C431A6B8C048A8ECC048BFEC28A467ABB0A46AA677A142A467ABB0A5C3A94DA142A4ADAAD1A6A8A67BA142B773A9B1A5A1A55FA4CEA454AE6CB0EAA5FA292DA5D3BDD0B6B7AABE>" else reference.title
+        link = 'https://storage.cloud.google.com/' + urllib.parse.quote(
+            reference.uri.replace('gs://', '')) if reference.uri.startswith('gs://') else ""
+        ref = f"[{i}] : [{name}]({link})"
+        extractive_answers.append(ref)
+    return extractive_answers
 
-    st.set_page_config(page_title="社會住宅申請須知 AI 問答 ",
-                       page_icon="🔍", layout='wide')
+
+def load_environment_variables() -> Tuple[str, str, str, str]:
+    """載入環境變數"""
+    load_dotenv()
+    return (
+        os.getenv("PROJECT_ID", "nthurc-aisearch-202406"),
+        os.getenv("LOCATION", "global"),
+        os.getenv("ENGINE_ID", "pdf-data-search_1718003912950"),
+        os.getenv("REGION", "asia-east1")
+    )
+
+
+def setup_page_config():
+    """設置頁面配置"""
+    st.set_page_config(
+        page_title="社會住宅申請須知 AI 問答",
+        page_icon="🔍",
+        layout='wide'
+    )
     st.title(":violet[社會住宅申請須知 AI 問答 🔍]")
 
+
+def setup_sidebar():
+    """設置側邊欄"""
     with st.sidebar:
         url = 'https://storage.googleapis.com/image-text-generate-test/unnamed.png'
 
         with st.expander("🤖 **關於 AI 搜尋**", expanded=False):
             st.markdown('''
-                    - 通過提問詢問 PDF 並**提取相關的資料後產生總結以及輸出相關參考文獻**
-                    - 使用 LLM (**Gemini-1.5-Flash**) 來總結相關資料產生回答
-                    - 使用 **Vertex Search** 來提取 PDF 中與提問相關的資料
-                    - 資料來源自 : **:red[113 年度第 1 次隨到隨辦 土城大安、土城永和、板橋江翠、土城明德 2 號、五股成州、新店央北 及三峽國光等七處青年社會住宅申請須知]**以及**:red[住都中心網站常見問題資料]**
-                    - 可以使用 Vertex Search 提供的 **Widget** 也可以通過 **API** 或是 Python Library 來部署在網站中
-                    - 在**企業中的 Use Case** : 可以用來作為外部人員了解公司的管道，也可以作為內部人員輔助工具( 新人 On boarding 輔助系統、客服回答問題 KnowledgeBase、增強企業內部搜尋的能力等相關用途)
-                    ''')
+            - 通過提問詢問 PDF 並**提取相關的資料後產生總結以及輸出相關參考文獻**
+            - 使用 LLM (**Gemini-1.5-Flash**) 來總結相關資料產生回答
+            - 使用 **Vertex Search** 來提取 PDF 中與提問相關的資料
+            - 資料來源自 : **:red[113 年度第 1 次隨到隨辦 土城大安、土城永和、板橋江翠、土城明德 2 號、五股成州、新店央北 及三峽國光等七處青年社會住宅申請須知]**以及**:red[住都中心網站常見問題資料]**
+            - 可以使用 Vertex Search 提供的 **Widget** 也可以通過 **API** 或是 Python Library 來部署在網站中
+            - 在**企業中的 Use Case** : 可以用來作為外部人員了解公司的管道，也可以作為內部人員輔助工具( 新人 On boarding 輔助系統、客服回答問題 KnowledgeBase、增強企業內部搜尋的能力等相關用途)
+            ''')
+
         st.divider()
+
         st.markdown('''
-            ### :blue[關於 Master Concept] :
-            - 思想科技 Master Concept 致力於提供科技服務與雲端顧問諮詢，為世界級的領導品牌改善客戶體驗。
-            - 擁有超過 120 位夥伴在數位轉型過程中為亞太地區上千間的企業客戶服務，我們團隊為橫跨各產業的客戶提供專業雲端策略、技術導入與整合支援、專業培訓以及平台升級。
-            - 聯絡我們：
-                - [官網](https://hkmci.com/zh-hant/)
-                - [聯絡我們](https://hkmci.com/zh-hant/%E8%81%AF%E7%B9%AB%E6%88%91%E5%80%91/)
+        ### :blue[關於 Master Concept] :
+        - 思想科技 Master Concept 致力於提供科技服務與雲端顧問諮詢，為世界級的領導品牌改善客戶體驗。
+        - 擁有超過 120 位夥伴在數位轉型過程中為亞太地區上千間的企業客戶服務，我們團隊為橫跨各產業的客戶提供專業雲端策略、技術導入與整合支援、專業培訓以及平台升級。
+        - 聯絡我們：
+        - [官網](https://hkmci.com/zh-hant/)
+        - [聯絡我們](https://hkmci.com/zh-hant/%E8%81%AF%E7%B9%AB%E6%88%91%E5%80%91/)
         ''')
+
         st.image(url, caption='Master Concept', use_column_width=True)
 
-    vertexai.init(project=project_id, location=region)
-    aiplatform.init(project=project_id, location=region)
 
+def setup_test_cases():
+    """設置測試案例"""
     with st.expander("📍 **測試案例**", expanded=True):
         st.markdown("""
-                        相關的一些測試問題：
-                        1. 社會住宅的申請流程是什麼？需要哪些基本文件？
-                        2. 青年社會住宅戶租金訂定原則為何？是否需另外繳交管理費？
-                        3. 如果申請人的戶籍所在地在外縣市，是否能申請新北市的社會住宅？
-                        4. 承租社會住宅後是否可以將房屋轉租或用於商業用途？違反規定會有什麼後果？
-                        5. 目前接受政府其他租金補貼者，是否可以再申請青年社會住宅？入住後原租金補貼資格會怎麼處理？
-                        """)
-    st.markdown('---')
-    user_query = st.text_input(
-        "提問", placeholder="請在此提出與新北社宅相關的問題", key="user_query")
-    button = st.button('Search 🔎')
-    if button:
-        st.markdown('## 🤖 :orange[社宅小助手] : \n\n')
-        with st.status('搜尋中...') as status:
-            st.write("開始搜尋相關資料")
-            answer, text = search_pdf_and_sum(
-                user_query, status, show_context=True)
-            status.update(label="完成", state="complete", expanded=False)
-        if answer != 'No results' or text != 'No results':
-            st.markdown(answer)
-            with st.expander("📎 來源", expanded=False):
-                col1, col2 = st.columns([3, 1])
-                with col1:
-                    st.markdown(text)
-                with col2:
-                    # 顯示 PDF 預覽按鈕
-                    if 'pdf_preview_buttons' in st.session_state:
-                        for button_info in st.session_state.pdf_preview_buttons:
-                            if st.button(f"Preview PDF", key=button_info['key']):
-                                pdf_preview(
-                                    button_info['link'], button_info['page'])
+        相關的一些測試問題：
+        1. 社會住宅的申請流程是什麼？需要哪些基本文件？
+        2. 青年社會住宅戶租金訂定原則為何？是否需另外繳交管理費？
+        3. 如果申請人的戶籍所在地在外縣市，是否能申請新北市的社會住宅？
+        4. 承租社會住宅後是否可以將房屋轉租或用於商業用途？違反規定會有什麼後果？
+        5. 目前接受政府其他租金補貼者，是否可以再申請青年社會住宅？入住後原租金補貼資格會怎麼處理？
+        """)
 
-                # 清除按鈕資訊，為下一次搜索做準備
-                st.session_state.pdf_preview_buttons = []
-        else:
-            st.warning("很抱歉，沒有找到相關資料, 請重新輸入與新北市社會住宅申請以及規範相關的問題")
+
+def display_chat_history(chat_history: List):
+    """顯示聊天歷史"""
+    for message in chat_history:
+        if isinstance(message, AIMessage):
+            with st.chat_message("AI"):
+                st.markdown(message.content)
+        elif isinstance(message, HumanMessage):
+            with st.chat_message("Human"):
+                st.markdown(message.content)
+
+
+def handle_user_input(
+    user_query: str,
+    chat_history: List,
+    project_id: str,
+    location: str,
+    engine_id: str
+) -> Tuple[str, str]:
+    """處理用戶輸入並返回 AI 回應"""
+    try:
+        conversation_id = st.session_state.get("conversation_id")
+        response, refs = searchWithSummary(
+            project_id, location, engine_id, [user_query], conversation_id
+        )
+        return response, refs
+    except Exception as e:
+        st.error(f"處理查詢時發生錯誤：{str(e)}")
+        return "抱歉，處理您的查詢時發生錯誤。請稍後再試。", ""
+
+
+def main():
+    """
+    主函數，用於設定網頁標題、佈局和側邊欄，並處理使用者的輸入和搜尋操作。
+    """
+    project_id, location, engine_id, region = load_environment_variables()
+
+    if "chat_history" not in st.session_state:
+        st.session_state["chat_history"] = []
+
+    setup_page_config()
+    setup_sidebar()
+    setup_test_cases()
+
+    try:
+        aiplatform.init(project=project_id, location=region)
+    except Exception as e:
+        st.error(f"初始化 AI 平台時發生錯誤：{str(e)}")
+        return
+
+    display_chat_history(st.session_state.chat_history)
+
+    user_query = st.chat_input("輸入您的問題...")
+    if user_query and user_query.strip() != "":
+        st.session_state.chat_history.append(HumanMessage(content=user_query))
+        with st.chat_message("Human"):
+            st.markdown(user_query)
+
+        with st.chat_message("AI"):
+            response, refs = handle_user_input(
+                user_query, st.session_state.chat_history, project_id, location, engine_id)
+            st.markdown(response)
+            if refs:
+                st.caption("📚參考資料 : \n" + refs)
+
+        st.session_state.chat_history.append(AIMessage(content=response))
 
 
 if __name__ == "__main__":
-    load_dotenv()
-    project_id = "nthurc-aisearch-202406"
-    location = "global"
-    engine_id = "pdf-data-search_1718003912950"
-    region = "asia-east1"
     main()

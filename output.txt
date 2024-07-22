@@ -1,0 +1,712 @@
+reply {
+  summary {
+    summary_text: "戶口名簿是用来证明您和您的家庭成员的户籍关系的官方文件 [1, 2, 3]。 您可以选择提供全户最新电子户籍謄本正本或户口名簿影本 [1, 2, 3]。 申请人需要在申请期限内备妥相关文件，并于收件时间亲至土城员和青年社会住宅管理中心完成送件 [2]。 申请日期应为民国113年2月29日(含)以后 [1]。 此外，您还需要提供新北市设籍或就学、就業證明正本 [1]。 \n"
+    summary_with_metadata {
+      summary: "戶口名簿是用来证明您和您的家庭成员的户籍关系的官方文件。 您可以选择提供全户最新电子户籍謄本正本或户口名簿影本。 申请人需要在申请期限内备妥相关文件，并于收件时间亲至土城员和青年社会住宅管理中心完成送件。 申请日期应为民国113年2月29日(含)以后。 此外，您还需要提供新北市设籍或就学、就業證明正本。 \n"
+      citation_metadata {
+        citations {
+          end_index: 84
+          sources {
+          }
+          sources {
+            reference_index: 1
+          }
+          sources {
+            reference_index: 2
+          }
+        }
+        citations {
+          start_index: 85
+          end_index: 166
+          sources {
+          }
+          sources {
+            reference_index: 1
+          }
+          sources {
+            reference_index: 2
+          }
+        }
+        citations {
+          start_index: 167
+          end_index: 302
+          sources {
+            reference_index: 1
+          }
+        }
+        citations {
+          start_index: 303
+          end_index: 356
+          sources {
+          }
+        }
+        citations {
+          start_index: 357
+          end_index: 432
+          sources {
+          }
+        }
+      }
+      references {
+        title: "<4D6963726F736F667420576F7264202D20313133A67EABD7B2C431A6B8C048A8ECC048BFEC28A467ABB0A46AA677A142A467ABB0A5C3A94DA142A4ADAAD1A6A8A67BA142B773A9B1A5A1A55FA4CEA454AE6CB0EAA5FA292DA5D3BDD0B6B7AABE>"
+        document: "projects/362021287114/locations/global/collections/default_collection/dataStores/pdf-data-search_1718003912950/branches/0/documents/2c19656a5ab29bcff2059bb0b65108b9"
+        uri: "gs://nthurc-aisearch-poc-data/PDF_PoC/申請須知.pdf"
+      }
+      references {
+        title: "網站常見問題集"
+        document: "projects/362021287114/locations/global/collections/default_collection/dataStores/pdf-data-search_1718003912950/branches/0/documents/2d6dd704e20fad66e2d83193a2a8e1e4"
+        uri: "gs://nthurc-aisearch-poc-data/PDF_PoC/網站常見問題集.pdf"
+      }
+      references {
+        title: "申請須知 (下)"
+        document: "projects/362021287114/locations/global/collections/default_collection/dataStores/pdf-data-search_1718003912950/branches/0/documents/d94d4fa42822476bdcbb34c4eb165508"
+        uri: "gs://nthurc-aisearch-poc-data/PDF_PoC/申請須知 (下).pdf"
+      }
+    }
+  }
+}
+conversation {
+  name: "projects/362021287114/locations/global/collections/default_collection/dataStores/pdf-data-search_1718003912950/conversations/8354159113724969335"
+  state: IN_PROGRESS
+  user_pseudo_id: "8354159113724969335"
+  messages {
+    user_input {
+      input: "我想申請社宅"
+    }
+  }
+  messages {
+    reply {
+      summary {
+        summary_text: "要申请新北市青年社会住宅，您需要满足一些条件，例如年满18岁或已婚未满18岁，在新北市设籍、就学或就业，且家庭成员在台北市、新北市、桃园市和基隆市均无自有住宅 [3]。 此外，家庭成员的收入也需要符合当年度的公告标准 [3]。 申请人需要准备相关文件，例如全户最新电子户籍謄本正本或户口名簿影本，以及最近一年的财产归属资料清单正本 [1]。 申请期限为民国113年3月12日至4月11日，您可以选择现场或线上申请 [2]。 申请人需要在申请期限内备妥相关文件，并于收件时间亲至土城员和青年社会住宅管理中心完成送件 [2]。 \n"
+        summary_with_metadata {
+          summary: "要申请新北市青年社会住宅，您需要满足一些条件，例如年满18岁或已婚未满18岁，在新北市设籍、就学或就业，且家庭成员在台北市、新北市、桃园市和基隆市均无自有住宅。 此外，家庭成员的收入也需要符合当年度的公告标准。 申请人需要准备相关文件，例如全户最新电子户籍謄本正本或户口名簿影本，以及最近一年的财产归属资料清单正本。 申请期限为民国113年3月12日至4月11日，您可以选择现场或线上申请。 申请人需要在申请期限内备妥相关文件，并于收件时间亲至土城员和青年社会住宅管理中心完成送件。 \n"
+          citation_metadata {
+            citations {
+              end_index: 232
+              sources {
+                reference_index: 2
+              }
+            }
+            citations {
+              start_index: 233
+              end_index: 305
+              sources {
+                reference_index: 2
+              }
+            }
+            citations {
+              start_index: 306
+              end_index: 462
+              sources {
+              }
+            }
+            citations {
+              start_index: 463
+              end_index: 553
+              sources {
+                reference_index: 1
+              }
+            }
+            citations {
+              start_index: 554
+              end_index: 689
+              sources {
+                reference_index: 1
+              }
+            }
+          }
+          references {
+            title: "申請須知(上)"
+            document: "projects/362021287114/locations/global/collections/default_collection/dataStores/pdf-data-search_1718003912950/branches/0/documents/2e4aef8099a2d1ef0b056c3fd076bedd"
+            uri: "gs://nthurc-aisearch-poc-data/PDF_PoC/申請須知(上).pdf"
+          }
+          references {
+            title: "申請須知 (下)"
+            document: "projects/362021287114/locations/global/collections/default_collection/dataStores/pdf-data-search_1718003912950/branches/0/documents/d94d4fa42822476bdcbb34c4eb165508"
+            uri: "gs://nthurc-aisearch-poc-data/PDF_PoC/申請須知 (下).pdf"
+          }
+          references {
+            title: "網站常見問題集"
+            document: "projects/362021287114/locations/global/collections/default_collection/dataStores/pdf-data-search_1718003912950/branches/0/documents/2d6dd704e20fad66e2d83193a2a8e1e4"
+            uri: "gs://nthurc-aisearch-poc-data/PDF_PoC/網站常見問題集.pdf"
+          }
+        }
+      }
+    }
+  }
+  messages {
+    user_input {
+      input: "三峽國光"
+    }
+  }
+  messages {
+    reply {
+      summary {
+        summary_text: "三峽國光社宅的地址是新北市三峽區三樹一街2號 [1]。 租金分為四個等級，依家庭所得階層而定 [1]。 套房的月租金從3400元到8300元不等 [1]。 申請資格需要符合優先戶或一般戶青年族群的條件 [1]。 此外，您需要準備相關文件，例如全戶最新電子戶籍謄本正本或戶口名簿影本，以及最近一年的財產歸屬資料清單正本 [1]。 \n"
+        summary_with_metadata {
+          summary: "三峽國光社宅的地址是新北市三峽區三樹一街2號。 租金分為四個等級，依家庭所得階層而定。 套房的月租金從3400元到8300元不等。 申請資格需要符合優先戶或一般戶青年族群的條件。 此外，您需要準備相關文件，例如全戶最新電子戶籍謄本正本或戶口名簿影本，以及最近一年的財產歸屬資料清單正本。 \n"
+          citation_metadata {
+            citations {
+              end_index: 67
+              sources {
+              }
+            }
+            citations {
+              start_index: 68
+              end_index: 125
+              sources {
+              }
+            }
+            citations {
+              start_index: 126
+              end_index: 173
+              sources {
+              }
+            }
+            citations {
+              start_index: 174
+              end_index: 243
+              sources {
+              }
+            }
+            citations {
+              start_index: 244
+              end_index: 403
+              sources {
+              }
+            }
+          }
+          references {
+            title: "申請須知(上)"
+            document: "projects/362021287114/locations/global/collections/default_collection/dataStores/pdf-data-search_1718003912950/branches/0/documents/2e4aef8099a2d1ef0b056c3fd076bedd"
+            uri: "gs://nthurc-aisearch-poc-data/PDF_PoC/申請須知(上).pdf"
+          }
+          references {
+            title: "<4D6963726F736F667420576F7264202D20313133A67EABD7B2C431A6B8C048A8ECC048BFEC28A467ABB0A46AA677A142A467ABB0A5C3A94DA142A4ADAAD1A6A8A67BA142B773A9B1A5A1A55FA4CEA454AE6CB0EAA5FA292DA5D3BDD0B6B7AABE>"
+            document: "projects/362021287114/locations/global/collections/default_collection/dataStores/pdf-data-search_1718003912950/branches/0/documents/2c19656a5ab29bcff2059bb0b65108b9"
+            uri: "gs://nthurc-aisearch-poc-data/PDF_PoC/申請須知.pdf"
+          }
+          references {
+            title: "網站常見問題集"
+            document: "projects/362021287114/locations/global/collections/default_collection/dataStores/pdf-data-search_1718003912950/branches/0/documents/2d6dd704e20fad66e2d83193a2a8e1e4"
+            uri: "gs://nthurc-aisearch-poc-data/PDF_PoC/網站常見問題集.pdf"
+          }
+        }
+      }
+    }
+  }
+  messages {
+    user_input {
+      input: "我還還需要準備什麼?"
+    }
+  }
+  messages {
+    reply {
+      summary {
+        summary_text: "除了全戶最新電子戶籍謄本正本或戶口名簿影本，以及最近一年的財產歸屬資料清單正本之外 [1]，您还需要准备申请人及家庭成员自财政部国税局查调的最近一年度的综合所得税各類所得資料清單正本 [1]。 申请日期应为民国113年2月29日(含)以后 [1]。 此外，您还需要提供新北市设籍或就学、就業證明正本 [1]。 如果您是申请土城大安、土城永和、板橋江翠或土城明德2号社宅，还需要提供睦邻户资格证明 [1]。 \n"
+        summary_with_metadata {
+          summary: "除了全戶最新電子戶籍謄本正本或戶口名簿影本，以及最近一年的財產歸屬資料清單正本之外，您还需要准备申请人及家庭成员自财政部国税局查调的最近一年度的综合所得税各類所得資料清單正本。 申请日期应为民国113年2月29日(含)以后。 此外，您还需要提供新北市设籍或就学、就業證明正本。 如果您是申请土城大安、土城永和、板橋江翠或土城明德2号社宅，还需要提供睦邻户资格证明。 \n"
+          citation_metadata {
+            citations {
+              end_index: 264
+              sources {
+              }
+            }
+            citations {
+              start_index: 265
+              end_index: 318
+              sources {
+              }
+            }
+            citations {
+              start_index: 319
+              end_index: 394
+              sources {
+              }
+            }
+            citations {
+              start_index: 395
+              end_index: 522
+              sources {
+              }
+            }
+          }
+          references {
+            title: "申請須知(上)"
+            document: "projects/362021287114/locations/global/collections/default_collection/dataStores/pdf-data-search_1718003912950/branches/0/documents/2e4aef8099a2d1ef0b056c3fd076bedd"
+            uri: "gs://nthurc-aisearch-poc-data/PDF_PoC/申請須知(上).pdf"
+          }
+          references {
+            title: "申請須知 (下)"
+            document: "projects/362021287114/locations/global/collections/default_collection/dataStores/pdf-data-search_1718003912950/branches/0/documents/d94d4fa42822476bdcbb34c4eb165508"
+            uri: "gs://nthurc-aisearch-poc-data/PDF_PoC/申請須知 (下).pdf"
+          }
+          references {
+            title: "網站常見問題集"
+            document: "projects/362021287114/locations/global/collections/default_collection/dataStores/pdf-data-search_1718003912950/branches/0/documents/2d6dd704e20fad66e2d83193a2a8e1e4"
+            uri: "gs://nthurc-aisearch-poc-data/PDF_PoC/網站常見問題集.pdf"
+          }
+        }
+      }
+    }
+  }
+  messages {
+    user_input {
+      input: "戶口名簿是什麼？"
+    }
+  }
+  messages {
+    reply {
+      summary {
+        summary_text: "戶口名簿是用来证明您和您的家庭成员的户籍关系的官方文件 [1, 2, 3]。 您可以选择提供全户最新电子户籍謄本正本或户口名簿影本 [1, 2, 3]。 申请人需要在申请期限内备妥相关文件，并于收件时间亲至土城员和青年社会住宅管理中心完成送件 [2]。 申请日期应为民国113年2月29日(含)以后 [1]。 此外，您还需要提供新北市设籍或就学、就業證明正本 [1]。 \n"
+        summary_with_metadata {
+          summary: "戶口名簿是用来证明您和您的家庭成员的户籍关系的官方文件。 您可以选择提供全户最新电子户籍謄本正本或户口名簿影本。 申请人需要在申请期限内备妥相关文件，并于收件时间亲至土城员和青年社会住宅管理中心完成送件。 申请日期应为民国113年2月29日(含)以后。 此外，您还需要提供新北市设籍或就学、就業證明正本。 \n"
+          citation_metadata {
+            citations {
+              end_index: 84
+              sources {
+              }
+              sources {
+                reference_index: 1
+              }
+              sources {
+                reference_index: 2
+              }
+            }
+            citations {
+              start_index: 85
+              end_index: 166
+              sources {
+              }
+              sources {
+                reference_index: 1
+              }
+              sources {
+                reference_index: 2
+              }
+            }
+            citations {
+              start_index: 167
+              end_index: 302
+              sources {
+                reference_index: 1
+              }
+            }
+            citations {
+              start_index: 303
+              end_index: 356
+              sources {
+              }
+            }
+            citations {
+              start_index: 357
+              end_index: 432
+              sources {
+              }
+            }
+          }
+          references {
+            title: "<4D6963726F736F667420576F7264202D20313133A67EABD7B2C431A6B8C048A8ECC048BFEC28A467ABB0A46AA677A142A467ABB0A5C3A94DA142A4ADAAD1A6A8A67BA142B773A9B1A5A1A55FA4CEA454AE6CB0EAA5FA292DA5D3BDD0B6B7AABE>"
+            document: "projects/362021287114/locations/global/collections/default_collection/dataStores/pdf-data-search_1718003912950/branches/0/documents/2c19656a5ab29bcff2059bb0b65108b9"
+            uri: "gs://nthurc-aisearch-poc-data/PDF_PoC/申請須知.pdf"
+          }
+          references {
+            title: "網站常見問題集"
+            document: "projects/362021287114/locations/global/collections/default_collection/dataStores/pdf-data-search_1718003912950/branches/0/documents/2d6dd704e20fad66e2d83193a2a8e1e4"
+            uri: "gs://nthurc-aisearch-poc-data/PDF_PoC/網站常見問題集.pdf"
+          }
+          references {
+            title: "申請須知 (下)"
+            document: "projects/362021287114/locations/global/collections/default_collection/dataStores/pdf-data-search_1718003912950/branches/0/documents/d94d4fa42822476bdcbb34c4eb165508"
+            uri: "gs://nthurc-aisearch-poc-data/PDF_PoC/申請須知 (下).pdf"
+          }
+        }
+      }
+    }
+  }
+  start_time {
+    seconds: 1721627333
+    nanos: 386847000
+  }
+}
+search_results {
+  id: "2c19656a5ab29bcff2059bb0b65108b9"
+  document {
+    name: "projects/362021287114/locations/global/collections/default_collection/dataStores/pdf-data-search_1718003912950/branches/0/documents/2c19656a5ab29bcff2059bb0b65108b9"
+    id: "2c19656a5ab29bcff2059bb0b65108b9"
+    derived_struct_data {
+      fields {
+        key: "title"
+        value {
+          string_value: "<4D6963726F736F667420576F7264202D20313133A67EABD7B2C431A6B8C048A8ECC048BFEC28A467ABB0A46AA677A142A467ABB0A5C3A94DA142A4ADAAD1A6A8A67BA142B773A9B1A5A1A55FA4CEA454AE6CB0EAA5FA292DA5D3BDD0B6B7AABE>"
+        }
+      }
+      fields {
+        key: "snippets"
+        value {
+          list_value {
+            values {
+              struct_value {
+                fields {
+                  key: "snippet"
+                  value {
+                    string_value: "子女與申請人不同戶籍 者須檢附子女之<b>戶口名簿</b> 影本、電子戶籍謄本或國 民身分證影本。 3人以上 +6 於安置教養機構或 寄養家庭結束安置 無法返家，未滿25 歲 +2 社政&nbsp;..."
+                  }
+                }
+                fields {
+                  key: "snippet_status"
+                  value {
+                    string_value: "SUCCESS"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      fields {
+        key: "link"
+        value {
+          string_value: "gs://nthurc-aisearch-poc-data/PDF_PoC/申請須知.pdf"
+        }
+      }
+      fields {
+        key: "extractive_answers"
+        value {
+          list_value {
+            values {
+              struct_value {
+                fields {
+                  key: "pageNumber"
+                  value {
+                    string_value: "12"
+                  }
+                }
+                fields {
+                  key: "content"
+                  value {
+                    string_value: "12 【附表一】優先戶評點表項目內容權重備註低收入戶列冊之低收入戶+4 檢具當年度低收入戶證明影版。 中低收入戶列冊之中低收入戶+2 檢具當年度中低收入戶證明影版。 特殊境遇家庭符合特殊境遇家庭扶助條例所定各項家庭扶助+6 檢具當年度特殊境遇家庭扶助公文影版。 育有未成年子女2人+4 1.申請人育有未滿18歲之子女，該子女須為申請人所生且其監護權為申請人（申請人單獨監護或共同監護皆可） 2.子女與申請人不同戶籍者須檢附子女之<b>戶口名簿</b>影本、電子戶籍謄本或國民身分證影本。 3人以上+6 於安置教養機構或寄養家庭結束安置無法返家，未滿25 歲+2 社政主管機關出具之證明影本。 老人75歲（含）以上+4 <b>戶口名簿</b>影本、電子戶籍謄本或國民身分證影本。 65歲（含）以上，未滿75歲+2 受家庭暴力或性侵害之受害者及其子女+2 一年內曾經受家庭暴力或性侵害之有效證明影本（即保護令影本或確定判決書影本） 身心障礙者重度以上身心障礙者+6 身心障礙手冊或身心障礙影本中度身心障礙者+4 輕度身心障礙者+2 感染人類免疫缺乏病毒者或罹患後天免疫缺乏症候群者+2 醫院或衛生單位出具之證明文件影本或全國醫療服務卡影本。 原住民+4 <b>戶口名簿</b>影本、電子戶籍謄本。 災民災民指各級災害主管機關依法認定為遭受災害之人民，且其合法房屋因受災致不堪居住者。 +4 於申請表勾選相關欄位後由本局通報主管機關認定。 遊民遊民指經各直轄市、縣（市） 社政主管機關認定、列冊在案，並認為有安置必要及意願者。 +2 於申請表勾選相關欄位後由本局通報主管機關認定。 因懷孕或生育而遭遇困境之未成年人經直轄市、縣（市）社政主管機關認定者。 +2 提供主管機關認定證明文件或經本局通報主管機關認定。"
+                  }
+                }
+              }
+            }
+            values {
+              struct_value {
+                fields {
+                  key: "pageNumber"
+                  value {
+                    string_value: "6"
+                  }
+                }
+                fields {
+                  key: "content"
+                  value {
+                    string_value: "6 (五) 人口數限制： 1. 家庭成員2 人以上（含2 人）始可申請2 房型。 2. 家庭成員3 人以上（含3 人）始可申請3 房型。 (六) 住宅資源不得重複享有限制： 1. 家庭成員有申請等候承租國民住宅、公共（營）住宅或社會住宅之情事，於簽訂本案租賃契約前， 應事先完成放棄國民住宅之等候。 2. 家庭成員現已承租國民住宅、公共（營）住宅或社會住宅者，於簽訂本案租賃契約前，應事先完成退租國民住宅、公共（營）住宅或社會住宅及完成清空點交與遷出程序。 三、申請人應以書面檢附下列文件： (一)113 年度第1 次隨到隨辦-青年社會住宅申請書正本。 本次開放申請「土城大安、土城永和、板橋江翠、土城明德2 號、五股成州、新店央北及三峽國光」等7 處社宅，申請人應就所申請承租社宅，分別填寫申請書，並依申請身分類別及資格，檢附(二)至(七)相關文件。 (二)全戶最新電子戶籍謄本正本或全戶<b>戶口名簿</b>影本1.檢附【民國113 年2 月29 日(含)後】申請之全戶最新電子戶籍謄本正本， 戶籍資料應為現戶全戶，且申請人及家庭成員不得省略記事。 (線上申請者，應檢附正反兩面之完整文件) 2.檢附【民國113 年2 月29 日(含)後】核發之全戶<b>戶口名簿</b>影本。 (以上1.2.擇一檢附) ※夫妻分戶者，應另檢具其配偶之最新電子戶籍謄本正本或<b>戶口名簿</b>影本。 (三)申請人及家庭成員自財政部國稅局查調之最近一年度財產歸屬資料清單正本，申請日期應為【民國113 年2 月29 日(含)後】，申請人得自行查調檢附，或填寫「查調最近一年度各類所得及財產資料授權書」委由本中心代為查調。 (四)申請人及家庭成員自財政部國稅局查調之最近一年度(111 年度)綜合所得稅各類所得資料清單正本，申請日期應為【民國113 年2 月29 日(含)後】，申請人得自行查調檢附，或填寫「查調最近一年度各類所得及財產資料授權書」委由本中心代為查調。 (五)【民國113 年2 月29 日(含)後】核發之新北市設籍或就學、就業證明(須詳載公司地址)正本(六)申請土城大安社宅、土城永和社宅、板橋江翠社宅或土城明德2 號社宅之睦鄰戶資格： ..."
+                  }
+                }
+              }
+            }
+            values {
+              struct_value {
+                fields {
+                  key: "pageNumber"
+                  value {
+                    string_value: "8"
+                  }
+                }
+                fields {
+                  key: "content"
+                  value {
+                    string_value: "8 (二)核發收件編號: 親赴土城員和青年社會住宅管理中心現場申請者，經本中心人員當場審核後，如申請人之應備文件齊全並資格合格者，本中心即當場核發收件編號予該申請人。反之，如申請人之應備文件不齊全或資格不合格者，本中心將不核發收件編號予該申請人。 (三)電腦抽籤: 預訂於113 年6 月26 日(三)辦理電腦抽籤作業，抽籤結果將公告於「新北市住宅及都市更新中心」官網，供申請人查詢。 (四)合格申請人經抽籤後取得選屋序號列入各資格類別遞補名冊: 1. 合格申請人按其所屬之承租類別列入各該青年社會住宅優先戶族群、睦鄰戶族群、現職警消人員戶族群、一般戶青年族群、非青年族群遞補名冊最後一位遞補者排序之後。本案日後如有其他餘屋時，將依｢新北市住宅及都市更新中心青年社會住宅遞補作業原則」之規定，辦理其他餘屋之遞補承租作業。 2. 列入一般戶抽籤名單之合格申請人，依所符資格情形同時於睦鄰戶、現職警消人員戶及一般戶青年族群或非青年族群遞補名冊進行遞補；如完成遞補或放棄，則另一遞補名冊之序位立即失效。 3."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+search_results {
+  id: "2d6dd704e20fad66e2d83193a2a8e1e4"
+  document {
+    name: "projects/362021287114/locations/global/collections/default_collection/dataStores/pdf-data-search_1718003912950/branches/0/documents/2d6dd704e20fad66e2d83193a2a8e1e4"
+    id: "2d6dd704e20fad66e2d83193a2a8e1e4"
+    derived_struct_data {
+      fields {
+        key: "title"
+        value {
+          string_value: "網站常見問題集"
+        }
+      }
+      fields {
+        key: "snippets"
+        value {
+          list_value {
+            values {
+              struct_value {
+                fields {
+                  key: "snippet"
+                  value {
+                    string_value: "(4)尚無戶籍之 外籍配偶及直系親屬，以居留證等具公信力文件，證明與申請人居住於同一門牌者，得列為家庭人口 數。(5)同戶籍之直系親屬、夫妻（含分戶），僅得由其中&nbsp;..."
+                  }
+                }
+                fields {
+                  key: "snippet_status"
+                  value {
+                    string_value: "SUCCESS"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      fields {
+        key: "link"
+        value {
+          string_value: "gs://nthurc-aisearch-poc-data/PDF_PoC/網站常見問題集.pdf"
+        }
+      }
+      fields {
+        key: "extractive_answers"
+        value {
+          list_value {
+            values {
+              struct_value {
+                fields {
+                  key: "pageNumber"
+                  value {
+                    string_value: "4"
+                  }
+                }
+                fields {
+                  key: "content"
+                  value {
+                    string_value: "Q and A Q: 04 何謂家庭成員？家庭成員可以分開同時提出申請嗎？如何計算人口數？ A: 1. 家庭成員：指申請人及其配偶（含分戶）、申請人戶籍內直系親屬（即父母、子女或祖父母）。2. 每一家庭成員以申請一戶為限。3. 人口數計算：(1)申請2 房者，申請人之家庭人口數應至少2 人以上，依申請時檢附之戶籍資料，審查家庭成員之人口總數，是否符合各房型家庭成員人口數規定。(2)申請3 房者，申請人之家庭人口數應至少3 人以上，依申請時檢附之戶籍資料，審查家庭成員之人口總數，是否符合各房型家庭成員人口數規定。(3)申請人或其配偶持醫院證明正本或媽媽手冊影本能證明已懷孕者，胎兒視為1口。(4)尚無戶籍之外籍配偶及直系親屬，以居留證等具公信力文件，證明與申請人居住於同一門牌者，得列為家庭人口數。(5)同戶籍之直系親屬、夫妻（含分戶），僅得由其中一人為申請人，重複申請時，由本局向申請人確認放棄者，逾期未能確認，申請在後者視為不合格。(6)同戶籍之旁系親屬各自申請者，戶籍內直系親屬不得重複計入家庭人口數，重複計入時，由本局向申請人確認，逾期未能確認，該人口數計入申請在前者。 Page 4."
+                  }
+                }
+              }
+            }
+            values {
+              struct_value {
+                fields {
+                  key: "pageNumber"
+                  value {
+                    string_value: "6"
+                  }
+                }
+                fields {
+                  key: "content"
+                  value {
+                    string_value: "Q and A Q: 06 申請人之子女未成年，是否仍需檢附其財產歸屬資料清單及綜合所得稅各類所得資料清單？ A: <b>是</b>，申請人須檢附申請人及其配偶、申請人戶籍內直系親屬最近一年之財產歸屬資料清單及綜合所得稅各類所得資料清單；若子女為未滿1歲者，則只需檢附其財產歸屬資料清單。 Page 6."
+                  }
+                }
+              }
+            }
+            values {
+              struct_value {
+                fields {
+                  key: "pageNumber"
+                  value {
+                    string_value: "3"
+                  }
+                }
+                fields {
+                  key: "content"
+                  value {
+                    string_value: "Q and A Q: 03 特殊身分或情形的定義？ A: 依據住宅法第4 條第1 項規定：特殊情形或身分，指下列規定之一者：1.低收入戶或中低收入戶。2.特殊境遇家庭。3.育有未成年子女2人以上（申請人或配偶於公告日前已懷孕者，得計入）4.於安置教養機構或寄養家庭結束安置無法返家，未滿25 歲。5.65 歲以上之老人。6.受家庭暴力或性侵害之受害者及其子女。7.身心障礙者。8.感染人類免疫缺乏病毒者或罹患後天免疫缺乏症候群者。9.原住民。10.災民。11.遊民。12.因懷孕或生育而遭遇困境之未成年人。 Page 3."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+search_results {
+  id: "d94d4fa42822476bdcbb34c4eb165508"
+  document {
+    name: "projects/362021287114/locations/global/collections/default_collection/dataStores/pdf-data-search_1718003912950/branches/0/documents/d94d4fa42822476bdcbb34c4eb165508"
+    id: "d94d4fa42822476bdcbb34c4eb165508"
+    derived_struct_data {
+      fields {
+        key: "title"
+        value {
+          string_value: "申請須知 (下)"
+        }
+      }
+      fields {
+        key: "snippets"
+        value {
+          list_value {
+            values {
+              struct_value {
+                fields {
+                  key: "snippet"
+                  value {
+                    string_value: "... 戶最新電子戶籍謄本正本或<b>戶口名簿</b>影 本。 10.災民：於申請表勾選相關欄位後，並應提供受災日起一年內經相關主管機關認定之文件影本。 11.遊民：於申請表勾選相關欄位&nbsp;..."
+                  }
+                }
+                fields {
+                  key: "snippet_status"
+                  value {
+                    string_value: "SUCCESS"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      fields {
+        key: "link"
+        value {
+          string_value: "gs://nthurc-aisearch-poc-data/PDF_PoC/申請須知 (下).pdf"
+        }
+      }
+      fields {
+        key: "extractive_answers"
+        value {
+          list_value {
+            values {
+              struct_value {
+                fields {
+                  key: "pageNumber"
+                  value {
+                    string_value: "1"
+                  }
+                }
+                fields {
+                  key: "content"
+                  value {
+                    string_value: "7 5.65 歲以上之老人：檢附【113 年2 月29 日(含)後】申請之全戶最新電子戶籍謄本正本或<b>戶口名簿</b>影本。 6.受家庭暴力或性侵害之受害者及其子女：受理申請截止前一年內曾經受家庭暴力或性侵害之有效證明影本(即保護令影本或確定判決書影本)。 7.身心障礙者：身心障礙手冊或證明影本。 8.感染人類免疫缺乏病毒者或罹患後天免疫缺乏症候群者：全國醫療服務卡影本（HIV）或檢附醫院、 衛生單位出具之證明文件正影本。 9.原住民：檢附【民國113 年2 月29 日(含)後】申請之全戶最新電子戶籍謄本正本或<b>戶口名簿</b>影本。 10.災民：於申請表勾選相關欄位後，並應提供受災日起一年內經相關主管機關認定之文件影本。 11.遊民：於申請表勾選相關欄位後由本中心通報主管機關認定。 12.因懷孕或生育而遭遇困境之未成年人：提供主管機關認定證明文件或經本中心通報主管機關認定。 四、申請期限：自民國113 年3 月12 日(二) 起至民國113 年4 月11 日(四)止。 (一)申請方式： 1.現場申請：申請人於申請期限內備妥相關文件，於收件時間親至土城員和青年社會住宅管理中心(新北市土城區莊園街155-1 號)填寫申請書並完成送件，逾期不受理。 2.線上申請：請至「新北市住宅及都市更新中心」（https://www.nthurc.org.tw）網站申請。 (二)收件及補件時間與地址： 1.日期：113 年3 月12 日(二)起至113 年4 月11 日(四)止（週一至週五：上午9:00~12:00，下午1:30~4:00) 2. ＊另開放週六113 年3 月23 日、113 年3 月30 日。 收件地址：土城員和青年社會住宅管理中心(新北市土城區莊園街155-1 號) (三)補正期限：申請人如有申請資料不齊全需補正，應依本中心通知之補正時間為準，並於收件時間親至土城員和青年社會住宅管理中心完成送件，逾期不受理。 五、電腦抽籤：民國113年6月26日(三) ，如有變動依本中心官網公告日期為準。 六、選屋與簽約公證：依看選屋序位，通知申請人辦理看選屋、簽約、公證及點交作業七、申辦流程： (一) ..."
+                  }
+                }
+              }
+            }
+            values {
+              struct_value {
+                fields {
+                  key: "pageNumber"
+                  value {
+                    string_value: "7"
+                  }
+                }
+                fields {
+                  key: "content"
+                  value {
+                    string_value: "13 【附表二】抽籤流程"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+search_results {
+  id: "2e4aef8099a2d1ef0b056c3fd076bedd"
+  document {
+    name: "projects/362021287114/locations/global/collections/default_collection/dataStores/pdf-data-search_1718003912950/branches/0/documents/2e4aef8099a2d1ef0b056c3fd076bedd"
+    id: "2e4aef8099a2d1ef0b056c3fd076bedd"
+    derived_struct_data {
+      fields {
+        key: "title"
+        value {
+          string_value: "申請須知(上)"
+        }
+      }
+      fields {
+        key: "snippets"
+        value {
+          list_value {
+            values {
+              struct_value {
+                fields {
+                  key: "snippet"
+                  value {
+                    string_value: "3 3. 各身分別分配房型如下表： 身分別 戶數 資格 套房 二房 三房 一般戶 24 睦鄰戶(5&nbsp;..."
+                  }
+                }
+                fields {
+                  key: "snippet_status"
+                  value {
+                    string_value: "SUCCESS"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      fields {
+        key: "link"
+        value {
+          string_value: "gs://nthurc-aisearch-poc-data/PDF_PoC/申請須知(上).pdf"
+        }
+      }
+      fields {
+        key: "extractive_answers"
+        value {
+          list_value {
+            values {
+              struct_value {
+                fields {
+                  key: "pageNumber"
+                  value {
+                    string_value: "3"
+                  }
+                }
+                fields {
+                  key: "content"
+                  value {
+                    string_value: "3 3. 各身分別分配房型如下表： 身分別戶數資格套房二房三房一般戶24 睦鄰戶(5%) 1 0 0 現職警消人員戶(5%) 1 0 0 屬18歲(含)以上未滿41歲(不含)之青年族群(72%) 8 3 6 屬41歲(含)以上之非青年族群(18%) 2 1 2 (五) 五股成州社宅： 1. 社宅地址：新北市五股區成泰路三段318 號。 2. 房型及月租金： 房型戶數坪數租金(含管理費)(元) 第1階第2階第3階第4階二房1 約29 坪10000 13700 18900 20900 4 約32 坪10600 14400 20100 22200 三房5 約36 坪12900 17800 22900 25400 汽車位5個3800元(非本次招租項目；承租人於完成房屋公證簽約後提出申請) 3. 各身分別分配房型如下表： 身分別戶數資格二房三房優先戶4 詳本申請須知第三條第七款(40%) 2 2 一般戶6 睦鄰戶(5%) 0 0 現職警消人員戶(5%) 0 0 屬18歲(含)以上未滿41歲(不含)之青年族群(40%) 2 2 屬41歲(含)以上之非青年族群(10%) 1 1 (六) 新店央北社宅： 1. 社宅地址：新北市新店區央北二路398 號。 2. 房型及月租金： 房型戶數坪數租金(含管理費)(元) 第1階第2階第3階第4階套房- 約11.5坪4200 6300 9200 10300 ※因應新店央北社宅「優先戶-套房型」遞補名單已用鑿，故僅開放具優先戶身分者提出申請。 3. 各身分別分配房型如下表： 身分別戶數資格套房優先戶- 詳本申請須知第三條第七款 -"
+                  }
+                }
+              }
+            }
+            values {
+              struct_value {
+                fields {
+                  key: "pageNumber"
+                  value {
+                    string_value: "2"
+                  }
+                }
+                fields {
+                  key: "content"
+                  value {
+                    string_value: "各身分別分配房型如下表： 身分別戶數資格套房二房三房優先戶21 詳本申請須知第三條第七款(40%) 4 15 2 一般戶31 睦鄰戶(5%) 1 2 0 現職警消人員戶(5%) 1 1 0 屬18歲(含)以上未滿41歲(不含)之青年族群(40%) 3 15 2 屬41歲(含)以上之非青年族群(10%) 1 4 1 (四) 土城明德2號社宅： 1. 社宅地址：新北市土城區學士路137 至159 號。 2. 房型及月租金： 房型戶數坪數租金(含管理費)(元) 第1階第2階第3階第4階套房4 約16 坪5500 7700 10900 12100 4 約19 坪6100 8600 13400 14900 4 約24 坪6900 9700 15500 18400 二房4 約25 坪9900 13900 16800 18600 三房8 約40 坪14100 19600 26200 29100 汽車位9個2900元、3000元(非本次招租項目；承租人於完成房屋公證簽約後提出申請)"
+                  }
+                }
+              }
+            }
+            values {
+              struct_value {
+                fields {
+                  key: "pageNumber"
+                  value {
+                    string_value: "1"
+                  }
+                }
+                fields {
+                  key: "content"
+                  value {
+                    string_value: "1 113 年度第1 次隨到隨辦土城大安、土城永和、板橋江翠、土城明德2 號、五股成州、新店央北及三峽國光等七處青年社會住宅申請須知(※限現場收件、線上申請；無郵寄申請) (本案公告日為113 年2 月29 日，本次受理應檢附之文件申請日須為公告日(含)以後申請) 一、 開放承租社宅之戶數、房型及租金： (一) 土城大安社宅： 1. 社宅地址：新北市土城區中央路89 巷150 號至170 號。 2. 房型、車位及月租金： 3. 各身分別分配房型如下表： 身分別戶數資格套房二房三房優先戶35 詳本申請須知第三條第七款(40%) 16 13 6 一般戶53 睦鄰戶(5%) 2 2 1 現職警消人員戶(5%) 2 2 1 屬18歲(含)以上未滿41歲(不含)之青年族群(40%) 16 13 6 屬41歲(含)以上之非青年族群(10%) 4 3 1 (二) 土城永和社宅： 1. 社宅地址：新北市土城區承天路4 巷2 號。 2. 房型及車位月租金： 房型戶數坪數租金(含管理費)(元) 第1階第2階第3階第4階套房11 約13.5 坪5000 7100 11300 12600 29 約15 坪5300 7500 12000 14000 二房5 約23 坪9300 13400 16500 18400 28 約25.5 坪9800 13900 17800 19800 三房1 約30 坪12900 18100 20400 22700 14 約34 坪13200 18900 22900 25500 汽車位43個2600元(非本次招租項目；承租人於完成房屋公證簽約後提出申請) 房型戶數坪數租金(含管理費)(元) 第1階第2階第3階第4階套房1 約12 坪4700 6700 9800 10900 28 約13.5 坪5000 7100 11300 12600 二房27 約23.5 坪8600 12900 16100 18100 三房10 約32 坪12100 18100 21200 23800 汽車位28個2600元(非本次招租項目；承租人於完成房屋公證簽約後提出申請)"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
