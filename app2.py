@@ -1,6 +1,5 @@
 import streamlit as st
 from dotenv import load_dotenv
-import vertexai
 from google.cloud import aiplatform
 from google.api_core.client_options import ClientOptions
 import urllib.parse
@@ -8,7 +7,6 @@ import google.cloud.discoveryengine_v1alpha as discoveryengine
 from typing import List, Optional, Tuple
 from google.api_core import exceptions
 from langchain_core.messages import AIMessage, HumanMessage
-import re
 import os
 
 
