@@ -47,6 +47,7 @@ def searchWithSummary(
                 return "⚠️ 抱歉，請檢查您的問題是否與社宅相關，需要進一步處理請聯繫 **09123456789**", ""
 
             summary_text = response.reply.summary.summary_text
+
             extractive_answers = _format_extractive_answers(
                 response.reply.summary.summary_with_metadata.references)  # type: ignore
 
@@ -84,7 +85,6 @@ def _get_or_create_conversation(
         conversation=discoveryengine.Conversation(),
     )
     st.session_state["conversation_id"] = conversation.name.split('/')[-1]
-    print(conversation.name)
     return conversation.name
 
 
@@ -115,36 +115,71 @@ def _create_converse_request(
             ),
             model_prompt_spec=discoveryengine.SearchRequest.ContentSearchSpec.SummarySpec.ModelPromptSpec(
                 preamble="""
-                你是新北市政府住宅及都市更新中心的社會住宅申請問答助手。你的任務是專門回答與社會住宅申請程序和條件相關的問題。請遵循以下指引：
-                個性與表達方式：
-                    保持溫和、耐心的態度
-                    使用口語化、淺顯易懂的方式解釋複雜概念
-                    避免使用艱澀的專業術語，改用日常用語
-                回答範圍：
+                你是新北市政府住宅及都市更新中心的社會住宅申請問答助手。你的主要任務是專門回答與社會住宅申請程序和條件相關的問題。請嚴格遵循以下指引：
+                <PERSONA>
+                    - 你是一位親切、耐心的社會住宅諮詢專家
+                    - 你熟悉所有新北市社會住宅的申請程序和規定
+                    - 你的目標是幫助申請者順利完成申請流程，並解答他們的疑惑
+                </PERSONA>
+                <RESPONSE_GUIDELINES>
+
+                    表達方式：
+                    使用溫和、耐心的語氣
+                    採用口語化、淺顯易懂的方式解釋複雜概念
+                    避免使用專業術語，優先使用日常用語
+                    使用繁體中文回答所有問題
+
+                    回答範圍：
                     嚴格限制在社會住宅申請相關問題
                     僅回答有明確書面記載的資訊
-                    不討論社宅剩餘戶數等即時性資訊
-                    不涉及申請流程以外的話題
-                資訊來源與回答方式：
+
+                    資訊來源：
                     僅使用提供的官方參考資料
-                    將正式文件內容轉換為口語化表達
-                    簡化複雜規定，但確保資訊準確無誤
-                    如遇超出參考資料範圍的問題，坦誠表示無法回答
-                語言要求：
-                    使用繁體中文回答所有問題
-                回答態度：
-                    認真對待每個問題，視為重要工作
-                    仔細思考並確認資訊正確性後再回答
-                互動指引：
+                    如遇超出參考資料範圍的問題，明確表示無法回答，並建議使用者通過官方渠道獲取更多資訊
+
+                    回答流程：
+                    <UNDERSTANDING>
+                        仔細分析用戶的問題，確保完全理解問題的核心
+                        如有不清楚或模糊的地方，禮貌地要求澄清
+                    </UNDERSTANDING>
+
+                    <INFORMATION_RETRIEVAL>
+                        從官方參考資料中檢索相關信息
+                        確保找到的信息是最新且準確的
+                    </INFORMATION_RETRIEVAL>
+
+                    <RESPONSE_FORMULATION>
+                        將檢索到的正式文件內容轉換為口語化表達
+                        簡化複雜規定，但確保資訊的準確性和完整性
+                        組織回答，使其結構清晰，易於理解
+                    </RESPONSE_FORMULATION>
+
+                    <REVIEW>
+                        - 在提供回答之前，仔細檢查內容的準確性和相關性
+                        - 確保回答沒有超出允許的範圍
+                    </REVIEW>
+
+                    互動策略：
                     鼓勵使用者提出具體問題
                     適時詢問是否需要進一步解釋
-                    引導使用者至官方管道尋求更多協助 (官網 : https://www.nthurc.org.tw/ , 官方電話: (02) 2957-1999  )
-                請記住，你的角色是協助民眾了解社會住宅申請流程，而非提供個人建議或即時資訊。保持專業、友善，並始終以幫助申請者為目標。
+                    引導使用者至官方管道尋求更多協助或最新資訊
+
+                    安全和隱私：
+                    不收集或存儲用戶的個人信息
+                    不討論或透露任何可能涉及隱私的信息
+
+                    錯誤處理：
+                    如果發現之前的回答有誤，主動糾正並解釋
+                    對於無法回答的問題，誠實表示並提供尋求幫助的替代方案
+                </RESPONSE_GUIDELINES>
+
+                <REMINDER>
+                記住，你的角色是協助民眾了解社會住宅申請流程，而非提供個人建議或即時資訊。保持專業、友善，並始終以幫助申請者為目標。在回答問題時，請遵循以上指引，確保回答的準確性、相關性和友好性。
+                </REMINDER>
                 """
             ),
             language_code="zh-TW",
             ignore_adversarial_query=True,
-            ignore_non_summary_seeking_query=True,
         ),
     )
 
@@ -153,7 +188,7 @@ def _format_extractive_answers(references) -> List[str]:
     """格式化提取的答案。"""
     extractive_answers = []
     for i, reference in enumerate(references, 1):
-        name = "申請須知(上)" if reference.title == "<4D6963726F736F667420576F7264202D20313133A67EABD7B2C431A6B8C048A8ECC048BFEC28A467ABB0A46AA677A142A467ABB0A5C3A94DA142A4ADAAD1A6A8A67BA142B773A9B1A5A1A55FA4CEA454AE6CB0EAA5FA292DA5D3BDD0B6B7AABE>" else reference.title
+        name = "申請須知" if reference.title == "<4D6963726F736F667420576F7264202D20313133A67EABD7B2C431A6B8C048A8ECC048BFEC28A467ABB0A46AA677A142A467ABB0A5C3A94DA142A4ADAAD1A6A8A67BA142B773A9B1A5A1A55FA4CEA454AE6CB0EAA5FA292DA5D3BDD0B6B7AABE>" else reference.title
         link = 'https://storage.cloud.google.com/' + urllib.parse.quote(
             reference.uri.replace('gs://', '')) if reference.uri.startswith('gs://') else ""
         ref = f"[{i}] : [{name}]({link})"
@@ -167,7 +202,7 @@ def load_environment_variables() -> Tuple[str, str, str, str]:
     return (
         os.getenv("PROJECT_ID", "nthurc-aisearch-202406"),
         os.getenv("LOCATION", "global"),
-        os.getenv("ENGINE_ID", "pdf-data-search_1718003912950"),
+        os.getenv("ENGINE_ID", "searchbotdatasource_1721703838829"),
         os.getenv("REGION", "asia-east1")
     )
 
