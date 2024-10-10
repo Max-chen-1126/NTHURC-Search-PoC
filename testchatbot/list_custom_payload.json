@@ -1,0 +1,70 @@
+{
+  "richContent": [
+    [
+      {
+        "type": "list",
+        "title": "1. 申請書正本",
+        "subtitle": "必要文件",
+        "anchor": {
+          "href": "https://www.nthurc.org.tw/leasing-news/residential-area",
+          "target": "_blank"
+        }
+      },
+      {
+        "type": "list",
+        "title": "2. 戶籍證明",
+        "subtitle": "全戶最新電子戶籍謄本正本或全戶戶口名簿影本（二擇一）",
+        "anchor": {
+          "href": "https://www.ris.gov.tw/app/portal/16",
+          "target": "_blank"
+        }
+      },
+      {
+        "type": "list",
+        "title": "3. 財產歸屬資料清單正本",
+        "subtitle": "申請人及其家庭成員自財政部國稅局查調之最近一年度財產歸屬資料清單正本",
+        "anchor": {
+          "href": "https://www.etax.nat.gov.tw/etwmain/",
+          "target": "_blank"
+        }
+      },
+      {
+        "type": "list",
+        "title": "4. 所得資料清單正本",
+        "subtitle": "申請人及其家庭成員自財政部國稅局查調之最近一年度綜合所得稅各類所得資料清單正本",
+        "anchor": {
+          "href": "https://www.etax.nat.gov.tw/etwmain/",
+          "target": "_blank"
+        }
+      },
+      {
+        "type": "list",
+        "title": "5. 新北市證明",
+        "subtitle": "設籍、就學或就業證明正本，招租公告日後核發"
+      },
+      {
+        "type": "divider"
+      },
+      {
+        "type": "list",
+        "title": "6. 睦鄰戶資格證明",
+        "subtitle": "如適用：睦鄰戶社宅所在地區設籍滿6個月(含)以上"
+      },
+      {
+        "type": "list",
+        "title": "7. 經濟或社會弱勢身分證明",
+        "subtitle": "如適用：低收/中低收入戶、特殊境遇家庭等"
+      },
+      {
+        "type": "list",
+        "title": "8. 家庭狀況證明",
+        "subtitle": "如適用：育有未成年子女、老人、身心障礙者等"
+      },
+      {
+        "type": "list",
+        "title": "9. 其他特殊身分證明",
+        "subtitle": "如適用：原住民、災民、遊民等"
+      }
+    ]
+  ]
+}

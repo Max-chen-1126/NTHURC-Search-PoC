@@ -1,0 +1,18 @@
+{
+  "richContent": [
+    [
+      {
+        "type": "chips",
+        "options": [
+          {
+            "mode": "blocking",
+            "text": "同意",
+            "image": {
+              "rawUrl": "https://storage.googleapis.com/meeting_minutes_public_website/done-tick.png"
+            }
+          }
+        ]
+      }
+    ]
+  ]
+}
