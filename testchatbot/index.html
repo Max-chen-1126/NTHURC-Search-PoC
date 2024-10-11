@@ -7,16 +7,18 @@
   project-id="nthurc-aisearch-202406"
   agent-id="4ac355e4-a265-44cd-a397-982a6e5620ac"
   language-code="zh-tw"
-  max-query-length="-1"
+  max-query-length="500"
+  session-ttl="1800"
   allow-feedback="all"
   storage-option="none"
   intent="event.welcome"
 >
   <df-messenger-chat-bubble
-    chat-title="新北住都AI智能客服"
+    chat-title="新北住都 AI 智能客服"
+    chat-title-icon="https://storage.googleapis.com/meeting_minutes_public_website/logo%20icon.png"
     chat-icon="https://storage.googleapis.com/meeting_minutes_public_website/logo%20icon.png"
-    chat-width="560"
-    chat-height="720"
+    bot-actor-image="https://storage.googleapis.com/meeting_minutes_public_website/chatbot.png"
+    allow-fullscreen="small"
   >
   </df-messenger-chat-bubble>
 </df-messenger>
@@ -26,29 +28,59 @@
     position: fixed;
     --df-messenger-font-color: #000;
     --df-messenger-font-family: Google Sans;
-    --df-messenger-chat-background: #f3f6fc;
+    --df-messenger-chat-background: #0f4b82;
+    --df-messenger-primary-color: #f6b796;
     --df-messenger-message-user-background: #d3e3fd;
-    --df-messenger-message-bot-background: #fff;
-    --df-messenger-font-size: 18px;
-    --df-messenger-chat-border-radius: 20px;
+    --df-messenger-message-bot-background: #2d7d9a;
+    --df-messenger-font-size: 16px;
+    --df-messenger-chat-border-radius: 8px;
+    --df-messenger-chat-border: 1px solid #0f4b82;
     bottom: 16px;
     right: 16px;
   }
 
   df-messenger-chat-bubble {
-    --df-messenger-chat-window-height: 720px;
+    --df-messenger-chat-window-height: 60vh;
     --df-messenger-chat-window-width: 560px;
-    --df-messenger-chat-window-offset: 20px;
-    --df-messenger-chat-window-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --df-messenger-chat-window-offset: 10px;
+    --df-messenger-chat-window-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
     --df-messenger-chat-bubble-background: #f6b796;
-    --df-messenger-chat-bubble-size: 72px;
-    --df-messenger-chat-bubble-icon-size: 40px;
-    --df-messenger-chat-bubble-close-icon-size: 28px;
-    --df-messenger-chat-bubble-border-radius: 36px;
+    --df-messenger-chat-bubble-icon-color: #0f4b82;
+    --df-messenger-chat-bubble-size: 108px;
+    --df-messenger-chat-bubble-icon-size: 72px;
+    --df-messenger-chat-bubble-close-icon-size: 36px;
+    --df-messenger-chat-bubble-border-radius: 72px;
     --df-messenger-font-color: #000;
     --df-messenger-font-family: Google Sans;
-    --df-messenger-chat-background: #dedede;
-    --df-messenger-message-user-background: #f8f8f8;
-    --df-messenger-message-bot-background: #e6b859;
+    --df-messenger-chat-background: #f4f4f4;
+    --df-messenger-message-user-background: #d3e3fd;
+    --df-messenger-message-bot-background: #fef1ea;
+  }
+
+  :root {
+    --df-messenger-titlebar-background: #f6b796;
+    --df-messenger-titlebar-border-bottom: 1px solid #0f4b82;
+    --df-messenger-titlebar-title-align: center;
+    --df-messenger-titlebar-font-color: black;
+    --df-messenger-titlebar-title-font-weight: 500;
+    --df-messenger-titlebar-icon-width: 20px;
+    --df-messenger-titlebar-icon-height: 20px;
+    --df-messenger-message-bot-border: 1px solid #f8e5da;
+    --df-messenger-message-user-border: 1px solid #c6d8f7;
+    --df-messenger-message-spacing: 12px;
+    --df-messenger-message-border-radius: 10px;
+    --df-messenger-chat-scroll-button-enabled-display: flex;
+    --df-messenger-chat-scroll-button-align: center;
+    --df-messenger-chat-scroll-button-font-size: 10px;
+    --df-messenger-chat-scroll-button-background: #f6b796;
+    --df-messenger-message-actor-spacing: 12px;
+    --df-messenger-message-actor-image-size: 32px;
+    --df-messenger-input-border-top: 1px solid #0f4b82;
+    --df-messenger-message-feedback-icon-distance: 6px;
+    --df-messenger-message-feedback-icon-border-radius: 10px;
+    --df-messenger-message-feedback-icon-background-hover: #fef1ea;
+    --df-messenger-message-rich-feedback-spacing: 6px;
+    --df-messenger-message-rich-feedback-border-radius: 10px;
+    --df-messenger-message-rich-feedback-background: #fef1ea;
   }
 </style>
